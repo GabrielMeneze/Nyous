@@ -12,11 +12,10 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 
 
-const autenticafo = () => {
+const autenticado = () => {
   return(
     <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={HomeScreen}/>
-      <Drawer.Screen name="Notifications" component={NotificationsScreen}/>
+      <Drawer.Screen name="Home" component={Home}/>
     </Drawer.Navigator>
   )
 }
@@ -24,8 +23,9 @@ const autenticafo = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown : false }}>
          <Stack.Screen name="Login" component={Login}></Stack.Screen>
+         <Stack.Screen name="autenticado" component={autenticado}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
