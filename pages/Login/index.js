@@ -1,11 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState,} from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
+
+//AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSeha] = useState('');
 
+    const Salvar = async (value) => {
+        try {
+          await AsyncStorage.setItem('@jwt', value)
+        } catch (e) {
+          // saving error
+        }
+      }
     
     const Logar = () =>{
 
@@ -21,17 +31,20 @@ const Login = ({navigation}) => {
             },
             body : JSON.stringify(corpo)
         })
-        .then(Response => {
-            if(Response.status === 200){
-                return Response.json();
-            }else{
-                alert('Email ou Senha inválidos')
-            }
-        })
+        .then(Response => Response.json())
+
         .then(data =>{
-            alert('Seja bem vindo!');
-            alert(data.token);
-            navigation.push('autenticado');
+            console.log(data);
+            if(data.status !== 404){
+                alert('Seja bem vindo!');
+                console.log(data.token);
+                Salvar(data.token);
+                navigation.push('autenticado');
+            }else{
+                alert('Email ou senha inválidos');
+            }
+
+            
         })
     }
 

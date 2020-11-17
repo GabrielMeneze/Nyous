@@ -16,7 +16,20 @@ const autenticado = () => {
   return(
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={Home}/>
+      <Drawer.Screen name="Logout" component={Logout}/>
     </Drawer.Navigator>
+  )
+}
+
+const Logout = ({navigation}) =>{
+  return(
+    <View>
+      <Text>Deseja realmente sair da aplicação?</Text>
+      <Button onPress={()=>{
+        AsyncStorage.removeItem('@jwt');
+        navigation.push('Login');
+      }}Title="SAIR"></Button>
+    </View>
   )
 }
 
